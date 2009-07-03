@@ -1,14 +1,30 @@
-function render_object(o, base_depth) {
-  str = "";
-  for (i in o) {
-    str += (base_depth+i+":"+o[i]+" (type: "+(typeof o[i])+")<br/>");
-    if (typeof o[i] == "object") {
-      str += render_object(o[i], base_depth+"&nbsp;&nbsp;");
-    }
-  }
-  return str;
-}
+//system.use('utilities');
+system.use("com.joyent.Sammy");
+system.use("org.json.json2");
+system.use("com.joyent.Resource");
+var Message = new Resource('message');
 
-function main( aRequest ) {
-  return render_object(aRequest, "");
+
+POST(/\/messages\/?$/, function() {
+    this.message = new Message();
+    this.message.body = this.request.body.message;
+    this.message.save();
+    return JSON.stringify({
+        ok:true
+    });
+});
+
+GET(/\/messages\/(.+)$/,function(last_id) {
+    var allMessages = Message.search({}, {sort: 'created'});
+    return JSON.stringify(allMessages);
+});
+
+
+GET("/", function() {
+  return redirect("index.html");
+});
+
+
+function main(arg) {
+    return "here";
 }
