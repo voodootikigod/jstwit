@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>JSTwit</title>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.3.1/dojo/dojo.xd.js"></script>
+<script type="text/javascript" src="/javascripts/base-1.3.0.min.js"></script>
+<head>
+<body>
+<form action="/messages" method="post">
+  <label for="new_message">Add to the Conversation: </label>
+  <input type="text" name="message" id="new_message" value=""/>
+  <input type="submit" value="Add"/>
+</form>
+<div id="loading">
+<img src="/images/spinner.gif" alt="web two dot oh hotness"/>
+</div>
+<div id="messages">
+</div>
+<script type="text/javascript" src="/javascripts/app.js"></script>
+</body>
+</html>
