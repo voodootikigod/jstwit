@@ -1,4 +1,10 @@
 dojo.require("dojo.html");
+
+
+function htmlEncode(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
 var last_id = -1;
 var obj =null;
 var get_messages = function() {
@@ -11,7 +17,8 @@ var get_messages = function() {
             if (response.length > 0) {
                 last_id = response[response.length-1].position;
                 dojo.forEach(response, function(obj, index, array) {
-                    dojo.query("#messages").addContent("<div class='message'>"+obj.body+"</div>", "first");
+                    var pure_string =htmlEncode(obj.body);
+                    dojo.query("#messages").addContent("<div class='message'>"+pure_string+"</div>", "first");
                 });
             }
             dojo.hide("loading");
